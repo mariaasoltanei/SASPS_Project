@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import sasps.documentmanagement.entities.Person;
 
 import java.util.Date;
 import java.util.UUID;
@@ -16,7 +17,7 @@ import java.util.UUID;
 public class DocumentDTO {
     UUID id;
     String name;
-    byte[] content;
     Date uploadDate;
     Date lastModifiedDate;
+    Person person;
 }
