@@ -7,6 +7,8 @@ import sasps.documentmanagement.entities.DocumentComponent;
 import sasps.documentmanagement.entities.Person;
 import sasps.documentmanagement.entities.Role;
 
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
 import java.util.HashMap;
 
 public abstract class DocumentProxy implements DocumentComponent {
@@ -49,4 +51,19 @@ public abstract class DocumentProxy implements DocumentComponent {
             }
         }
     }
+    private KeyPair generateKeyPair() {
+        try {
+            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+            keyPairGenerator.initialize(2048);
+            KeyPair keyPair = keyPairGenerator.generateKeyPair();
+            return keyPair;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public void signDocument(Person signer) {
+        //TODO: use keyPair.getPublic, getPrivate
+    }
+
 }

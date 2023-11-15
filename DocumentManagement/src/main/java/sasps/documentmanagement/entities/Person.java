@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.security.KeyPair;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -29,6 +30,9 @@ public class Person {
 
     @Column(name = "role", nullable = false)
     private Role role;
+
+    @Column(name = "signature", nullable = false)
+    private KeyPair signature;
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("uploadDate DESC")
