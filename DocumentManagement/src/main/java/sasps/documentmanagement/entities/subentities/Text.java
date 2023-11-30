@@ -7,9 +7,9 @@ import sasps.documentmanagement.entities.Person;
 import java.util.Date;
 import java.util.UUID;
 
-@DiscriminatorValue(".docx")
-public class Word extends Document {
-    public Word(UUID id, String name, Date uploadDate, Date lastModified, Person person){
+@DiscriminatorValue(".txt")
+public class Text extends Document {
+    public Text(UUID id, String name, Date uploadDate, Date lastModified, Person person){
         super(id,name,uploadDate,lastModified,person);
     }
 }

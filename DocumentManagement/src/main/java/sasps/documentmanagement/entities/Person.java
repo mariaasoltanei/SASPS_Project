@@ -31,7 +31,7 @@ public class Person {
     @Column(name = "role", nullable = false)
     private Role role;
 
-    @Column(name = "signature", nullable = false)
+    @Column(name = "signature")
     private KeyPair signature;
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)

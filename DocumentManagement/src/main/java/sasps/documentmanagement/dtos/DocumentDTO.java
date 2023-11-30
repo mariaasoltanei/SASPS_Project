@@ -1,6 +1,7 @@
 package sasps.documentmanagement.dtos;
 
 
+import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,9 +16,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DocumentDTO {
-    UUID id;
     String name;
     Date uploadDate;
     Date lastModifiedDate;
     Person person;
+    String extension;
 }

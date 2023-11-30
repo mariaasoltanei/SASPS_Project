@@ -11,6 +11,6 @@ public class DocumentBuilder {
     }
 
     public static DocumentDTO toDocumentDTO(Document document) {
-        return new DocumentDTO(document.getId(), document.getName(), document.getUploadDate(), document.getLastModifiedDate(), document.getPerson());
+        return new DocumentDTO(document.getName(), document.getUploadDate(), document.getLastModifiedDate(), document.getPerson(), null);
     }
 }
