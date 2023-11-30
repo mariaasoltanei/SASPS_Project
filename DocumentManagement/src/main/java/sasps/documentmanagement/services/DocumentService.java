@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import sasps.documentmanagement.dtos.DocumentDTO;
 import sasps.documentmanagement.dtos.builder.DocumentBuilder;
 import sasps.documentmanagement.entities.Document;
+import sasps.documentmanagement.entities.factory.DocumentFactory;
+import sasps.documentmanagement.exceptions.DocumentNotFoundException;
 import sasps.documentmanagement.repos.DocumentRepository;
 
 import java.util.Optional;
@@ -22,7 +24,6 @@ public class DocumentService {
         this.documentRepository = documentRepository;
     }
 
-
     public DocumentDTO findByID(UUID id) {
         Optional<Document> documentOptional = documentRepository.findById(id);
         if(documentOptional.isEmpty()){
@@ -33,18 +34,27 @@ public class DocumentService {
         return DocumentBuilder.toDocumentDTO(document);
     }
 
-    public UUID createDocument(DocumentDTO documentDTO) {
+    public UUID createDocument(DocumentDTO documentDTO) throws DocumentNotFoundException {
         Optional<Document> documentOptional = documentRepository.findByName(documentDTO.getName());
         if(documentOptional.isPresent()) {
             LOGGER.error("Document with name("+documentDTO.getName()+") exists already");
-            return null;
+            throw new DocumentNotFoundException("Document exists!");
         }
-        Document document = DocumentBuilder.toDocument(documentDTO);
+
+        Document document =
+                DocumentFactory.createDocument
+                        (
+                                documentDTO.getName(),
+                                documentDTO.getUploadDate(),
+                                documentDTO.getLastModifiedDate(),
+                                documentDTO.getPerson(),
+                                documentDTO.getExtension()
+                        );
         documentRepository.save(document);
         return document.getId();
     }
 
-    public UUID deleteDocument(UUID id){
+    public UUID deleteDocument(UUID id) throws ResourceNotFoundException{
         Optional<Document> documentOptional = documentRepository.findById(id);
         if(documentOptional.isEmpty()){
             LOGGER.error("Document with id("+id+") doesn't exist!");

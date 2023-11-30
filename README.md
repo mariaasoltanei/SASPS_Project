@@ -11,7 +11,7 @@
     - Creat mai multe componente compozite;
     - Adaugat functionalitate interfetei DocumentComponent.
 		
-## Abstract Factory
+## Factory
 ### TODO:
   	- Structura care creaza obiecte abstracte
 ## Decorator
