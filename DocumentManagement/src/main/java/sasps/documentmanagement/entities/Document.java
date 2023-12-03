@@ -3,7 +3,9 @@ package sasps.documentmanagement.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -15,7 +17,7 @@ import java.util.UUID;
 @DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING, name = "extension")
 @Entity
 @Builder
-@Table(name = "Document")
+@Table(name = "document")
 public class Document implements DocumentComponent {
 
     @Id
@@ -31,7 +33,7 @@ public class Document implements DocumentComponent {
     @Column(name = "last_modified_date")
     private Date lastModifiedDate;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "person_id", nullable = false)
     private Person person;
 

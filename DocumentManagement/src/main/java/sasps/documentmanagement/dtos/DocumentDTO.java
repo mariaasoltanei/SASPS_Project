@@ -19,6 +19,6 @@ public class DocumentDTO {
     String name;
     Date uploadDate;
     Date lastModifiedDate;
-    Person person;
     String extension;
+    String token;
 }
