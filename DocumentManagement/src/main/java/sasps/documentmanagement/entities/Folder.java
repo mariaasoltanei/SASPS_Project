@@ -15,14 +15,11 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Folder implements DocumentComponent {
     private String name;
-
-
     private List<DocumentComponent> documents;
 
     public void addDocument(DocumentComponent document) {
         documents.add(document);
     }
-
     @Override
     public String display() {
         return null;
