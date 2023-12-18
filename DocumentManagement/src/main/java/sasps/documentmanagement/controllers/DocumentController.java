@@ -10,7 +10,6 @@ import sasps.documentmanagement.proxy.DocumentProxy;
 
 import java.util.UUID;
 
-// CAPI
 @RestController
 @RequestMapping("/v1/documents")
 @CrossOrigin
