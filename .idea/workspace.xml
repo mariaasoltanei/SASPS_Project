@@ -5,10 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="30e6910c-3e0a-4748-80ff-31b61c0ecbb5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/e53fca0f-5410-4c6e-97bf-ceb132f576a7.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/e53fca0f-5410-4c6e-97bf-ceb132f576a7.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DocumentManagement/src/main/java/sasps/documentmanagement/controllers/DocumentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/DocumentManagement/src/main/java/sasps/documentmanagement/controllers/DocumentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DocumentManagement/src/main/java/sasps/documentmanagement/dtos/builder/DocumentBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/DocumentManagement/src/main/java/sasps/documentmanagement/dtos/adapter/DocumentAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DocumentManagement/src/main/java/sasps/documentmanagement/dtos/builder/PersonBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/DocumentManagement/src/main/java/sasps/documentmanagement/dtos/adapter/PersonAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DocumentManagement/src/main/java/sasps/documentmanagement/repos/UnitOfWork.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DocumentManagement/src/main/java/sasps/documentmanagement/services/DocumentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/DocumentManagement/src/main/java/sasps/documentmanagement/services/DocumentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DocumentManagement/src/main/java/sasps/documentmanagement/services/PersonServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/DocumentManagement/src/main/java/sasps/documentmanagement/services/PersonServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DocumentManagement/src/main/java/sasps/documentmanagement/services/UnitOfWorkImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <list id="25eed9e4-129a-4b4d-88e1-a2f5973d4c9f" name="Changes by Rob!n124" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -66,13 +70,14 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "vlad__dev",
     "jdk.selected.JAVA_MODULE": "17",
     "last_opened_file_path": "C:/Education/SASPS_Project",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "database.query.execution",
     "vue.rearranger.settings.migration": "true"
   },
@@ -130,6 +135,7 @@
       <workItem from="1702305016988" duration="1811000" />
       <workItem from="1702309682813" duration="146000" />
       <workItem from="1702309838251" duration="3147000" />
+      <workItem from="1702909632076" duration="4761000" />
     </task>
     <servers />
   </component>

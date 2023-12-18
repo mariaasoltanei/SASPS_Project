@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sasps.documentmanagement.controllers.interfaces.DocumentService;
 import sasps.documentmanagement.dtos.DocumentDTO;
-import sasps.documentmanagement.dtos.builder.DocumentBuilder;
+import sasps.documentmanagement.dtos.adapter.DocumentAdapter;
 import sasps.documentmanagement.entities.Document;
 import sasps.documentmanagement.entities.Person;
 import sasps.documentmanagement.entities.factory.DocumentFactory;
@@ -32,7 +32,7 @@ public class DocumentServiceImpl implements DocumentService {
             if (id == null)
                 throw new IllegalArgumentException("Id is null!");
             Document document = documentRepository.findById(id).orElseThrow(() -> new DocumentNotFoundException("Document with id(" + id + ") doesn't exist!"));
-            return DocumentBuilder.toDocumentDTO(document);
+            return DocumentAdapter.toDocumentDTO(document);
         } catch (DocumentNotFoundException | IllegalArgumentException e) {
             LOGGER.error(e.getMessage());
             throw e;

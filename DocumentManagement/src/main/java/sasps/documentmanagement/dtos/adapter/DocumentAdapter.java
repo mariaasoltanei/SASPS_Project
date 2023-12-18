@@ -1,11 +1,11 @@
-package sasps.documentmanagement.dtos.builder;
+package sasps.documentmanagement.dtos.adapter;
 
 import sasps.documentmanagement.dtos.DocumentDTO;
 import sasps.documentmanagement.entities.Document;
 
 import java.util.UUID;
 
-public class DocumentBuilder {
+public class DocumentAdapter {
     public static Document toDocument(DocumentDTO documentDTO) {
         return new Document(UUID.randomUUID(), documentDTO.getName(), documentDTO.getUploadDate(), documentDTO.getLastModifiedDate(), null);
     }
