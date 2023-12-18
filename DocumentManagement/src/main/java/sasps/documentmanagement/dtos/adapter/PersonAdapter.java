@@ -1,11 +1,11 @@
-package sasps.documentmanagement.dtos.builder;
+package sasps.documentmanagement.dtos.adapter;
 
 import sasps.documentmanagement.dtos.PersonDTO;
 import sasps.documentmanagement.entities.Person;
 
 import java.util.UUID;
 
-public class PersonBuilder {
+public class PersonAdapter {
 
     // Used only by createPerson() method
     // Safe to define documents list as "null"
