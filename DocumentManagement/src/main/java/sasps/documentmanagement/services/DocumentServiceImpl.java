@@ -8,8 +8,11 @@ import sasps.documentmanagement.controllers.interfaces.DocumentService;
 import sasps.documentmanagement.dtos.DocumentDTO;
 import sasps.documentmanagement.dtos.adapter.DocumentAdapter;
 import sasps.documentmanagement.entities.Document;
+import sasps.documentmanagement.entities.DocumentComponent;
 import sasps.documentmanagement.entities.Person;
+import sasps.documentmanagement.entities.factory.DocumentComponentFactory;
 import sasps.documentmanagement.entities.factory.DocumentFactory;
+import sasps.documentmanagement.entities.factory.FolderFactory;
 import sasps.documentmanagement.exceptions.DocumentNotFoundException;
 import sasps.documentmanagement.repos.DocumentRepository;
 
@@ -31,7 +34,7 @@ public class DocumentServiceImpl implements DocumentService {
         try {
             if (id == null)
                 throw new IllegalArgumentException("Id is null!");
-            Document document = documentRepository.findById(id).orElseThrow(() -> new DocumentNotFoundException("Document with id(" + id + ") doesn't exist!"));
+            Document document = (Document) documentRepository.findById(id).orElseThrow(() -> new DocumentNotFoundException("Document with id(" + id + ") doesn't exist!"));
             return DocumentAdapter.toDocumentDTO(document);
         } catch (DocumentNotFoundException | IllegalArgumentException e) {
             LOGGER.error(e.getMessage());
@@ -40,13 +43,22 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     public UUID createDocument(DocumentDTO documentDTO, Person person) throws DocumentNotFoundException {
+        DocumentComponentFactory documentComponentFactory;
         try{
-            Document searchedDocument = documentRepository.findByName(documentDTO.getName()).orElse(null);
+            Document searchedDocument = (Document) documentRepository.findByName(documentDTO.getName()).orElse(null);
             if (searchedDocument != null)
                 throw new DocumentNotFoundException("Document with name(" + documentDTO.getName() + ") already exists!");
             else {
-                Document document =
-                        DocumentFactory.createDocument
+                if(documentDTO.getExtension() == null)
+                {
+                    documentComponentFactory = new FolderFactory();
+                    DocumentComponent folder = documentComponentFactory.createDocumentComponent(documentDTO.getName(), documentDTO.getUploadDate(), documentDTO.getLastModifiedDate(), person, null);
+                    documentRepository.save(folder);
+                }
+                else
+                    documentComponentFactory = new DocumentFactory();
+                DocumentComponent document =
+                        documentComponentFactory.createDocumentComponent
                                 (
                                         documentDTO.getName(),
                                         documentDTO.getUploadDate(),
@@ -64,26 +76,26 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     public UUID deleteDocument(UUID id) throws DocumentNotFoundException {
-        Optional<Document> documentOptional = documentRepository.findById(id);
+        Optional<DocumentComponent> documentOptional = documentRepository.findById(id);
         if (documentOptional.isEmpty()) {
             LOGGER.error("Document with id(" + id + ") doesn't exist!");
             throw new DocumentNotFoundException("Document with id(" + id + ") doesn't exist!");
         }
-        Document document = documentOptional.get();
+        Document document = (Document) documentOptional.get();
         documentRepository.delete(document);
         return document.getId();
     }
 
     public UUID updateDocument(UUID id, DocumentDTO documentDTO) throws DocumentNotFoundException {
-        Optional<Document> documentOptional = documentRepository.findById(id);
+        Optional<DocumentComponent> documentOptional = documentRepository.findById(id);
         if (documentOptional.isEmpty()) {
             LOGGER.error("Document with id(" + id + ") doesn't exist!");
             throw new DocumentNotFoundException("Document with id(" + id + ") doesn't exist!");
         }
-        Document document = documentOptional.get();
+        Document document = (Document) documentOptional.get();
         document.setName(documentDTO.getName());
         document.setUploadDate(documentDTO.getUploadDate());
-        document.setLastModifiedDate(documentDTO.getLastModifiedDate());
+        document.setLastModified(documentDTO.getLastModifiedDate());
         //document.setPerson(documentDTO.getPerson());
         Document updatedDocument = documentRepository.save(document);
         return updatedDocument.getId();

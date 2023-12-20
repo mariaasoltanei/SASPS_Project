@@ -3,9 +3,7 @@ package sasps.documentmanagement.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 
@@ -14,11 +12,11 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorValue("document")
 @DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING, name = "extension")
 @Entity
 @Builder
-@Table(name = "document")
-public class Document implements DocumentComponent {
+public class Document extends DocumentComponent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -31,14 +29,23 @@ public class Document implements DocumentComponent {
     private Date uploadDate;
 
     @Column(name = "last_modified_date")
-    private Date lastModifiedDate;
+    private Date lastModified;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "person_id", nullable = false)
     private Person person;
 
+    public String getDiscriminatorValue() {
+        return this.getClass().getAnnotation(DiscriminatorValue.class).value();
+    }
     @Override
     public String display() {
-        return this.toString();
+        return """
+                Document: %s
+                Upload date: %s
+                Last modified date: %s
+                Person: %s
+                Extension: %s
+                """.formatted(name, uploadDate, lastModified, person, getDiscriminatorValue());
     }
 }

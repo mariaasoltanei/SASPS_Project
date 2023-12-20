@@ -14,6 +14,6 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Word extends Document {
     public Word(UUID id, String name, Date uploadDate, Date lastModified, Person person){
-        super(id,name,uploadDate,lastModified,person);
+        super(id, name, uploadDate, lastModified, person);
     }
 }

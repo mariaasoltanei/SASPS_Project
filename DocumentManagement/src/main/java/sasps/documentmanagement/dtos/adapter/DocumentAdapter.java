@@ -11,6 +11,6 @@ public class DocumentAdapter {
     }
 
     public static DocumentDTO toDocumentDTO(Document document) {
-        return new DocumentDTO(document.getName(), document.getUploadDate(), document.getLastModifiedDate(), null, null);
+        return new DocumentDTO(document.getName(), document.getUploadDate(), document.getLastModified(), null, null);
     }
 }
