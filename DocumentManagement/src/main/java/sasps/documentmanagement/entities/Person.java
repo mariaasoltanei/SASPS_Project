@@ -33,6 +33,6 @@ public class Person {
     @Column(name = "signature")
     private KeyPair signature;
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DocumentComponent> documents;
+    /*@OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DocumentComponent> documents;*/
 }

@@ -1,6 +1,7 @@
 package sasps.documentmanagement.entities.factory;
 
 import sasps.documentmanagement.entities.DocumentComponent;
+import sasps.documentmanagement.entities.Extension;
 import sasps.documentmanagement.entities.Folder;
 import sasps.documentmanagement.entities.Person;
 
