@@ -33,12 +33,9 @@ Pentru a putea realiza acest proiect, am ales sa folosesc framework-ul Spring Bo
 
 De asemenea, am ales sa folosesc baza de date PostgreSQL, deoarece aceasta este o baza de date relațională, care este foarte usor de folosit si care ofera o performanta foarte buna.
 
-Pentru a putea masura eficienta si optimizarea adusa de aceste design pattern-uri, am ales sa folosesc libraria Micrometer, care ofera o serie de metrici care pot fi folosite pentru a masura performanta aplicatiei. Aceste metrici sunt:
-- Counter - folosit pentru a numara evenimente
-- Gauge - folosit pentru a masura o valoare la un moment dat
-- Timer - folosit pentru a masura timpul de executie al unei metode
-- Distribution Summary - folosit pentru a masura distributia unei valori
-
+Pentru a putea masura eficienta si optimizarea adusa de aceste design pattern-uri, am ales sa folosesc aplicatia Postman, care ofera o serie de metrici care pot fi folosite pentru a masura performanta aplicatiei. Aceste metrici sunt:
+* Timpul de executie al unei cereri
+* Spatiul de memorie folosit de o cerere
 # Analiza modelelor de proiectare
 _________________________________________________________
 ## Creational

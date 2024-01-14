@@ -9,6 +9,7 @@ import sasps.documentmanagement.dtos.DocumentDTO;
 import sasps.documentmanagement.dtos.adapter.DocumentAdapter;
 import sasps.documentmanagement.entities.Document;
 import sasps.documentmanagement.entities.DocumentComponent;
+import sasps.documentmanagement.entities.Folder;
 import sasps.documentmanagement.entities.Person;
 import sasps.documentmanagement.entities.factory.DocumentComponentFactory;
 import sasps.documentmanagement.entities.factory.DocumentFactory;
@@ -44,32 +45,39 @@ public class DocumentServiceImpl implements DocumentService {
 
     public UUID createDocument(DocumentDTO documentDTO, Person person) throws DocumentNotFoundException {
         DocumentComponentFactory documentComponentFactory;
-        try{
-            Document searchedDocument = (Document) documentRepository.findByName(documentDTO.getName()).orElse(null);
-            if (searchedDocument != null)
-                throw new DocumentNotFoundException("Document with name(" + documentDTO.getName() + ") already exists!");
-            else {
-                if(documentDTO.getExtension() == null)
-                {
-                    documentComponentFactory = new FolderFactory();
-                    DocumentComponent folder = documentComponentFactory.createDocumentComponent(documentDTO.getName(), documentDTO.getUploadDate(), documentDTO.getLastModifiedDate(), person, null);
-                    documentRepository.save(folder);
-                }
-                else
-                    documentComponentFactory = new DocumentFactory();
-                DocumentComponent document =
-                        documentComponentFactory.createDocumentComponent
-                                (
-                                        documentDTO.getName(),
-                                        documentDTO.getUploadDate(),
-                                        documentDTO.getLastModifiedDate(),
-                                        person,
-                                        documentDTO.getExtension()
-                                );
+        try {
+            if (documentDTO.getExtension() == null) {
+                DocumentComponent searchedDocument = documentRepository.findByName(documentDTO.getName()).orElse(null);
+                if (searchedDocument != null)
+                    throw new DocumentNotFoundException("Document with name(" + documentDTO.getName() + ") already exists!");
+                documentComponentFactory = new FolderFactory();
+                DocumentComponent folder = documentComponentFactory.createDocumentComponent
+                        (
+                                documentDTO.getName(),
+                                documentDTO.getUploadDate(),
+                                documentDTO.getLastModifiedDate(),
+                                person,
+                                null
+                        );
+                documentRepository.save(folder);
+                return folder.getId();
+            } else {
+                documentComponentFactory = new DocumentFactory();
+                DocumentComponent searchedDocument = documentRepository.findByName(documentDTO.getName()).orElse(null);
+                if (searchedDocument != null)
+                    throw new DocumentNotFoundException("Document with name(" + documentDTO.getName() + ") already exists!");
+                DocumentComponent document = documentComponentFactory.createDocumentComponent
+                        (
+                                documentDTO.getName(),
+                                documentDTO.getUploadDate(),
+                                documentDTO.getLastModifiedDate(),
+                                person,
+                                documentDTO.getExtension()
+                        );
                 documentRepository.save(document);
                 return document.getId();
             }
-        }   catch (DocumentNotFoundException e) {
+        } catch (DocumentNotFoundException e) {
             LOGGER.error(e.getMessage());
             throw e;
         }

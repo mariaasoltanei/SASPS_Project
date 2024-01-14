@@ -2,6 +2,7 @@ package sasps.documentmanagement.repos;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import sasps.documentmanagement.entities.Document;
 import sasps.documentmanagement.entities.DocumentComponent;

@@ -1,5 +1,6 @@
 package sasps.documentmanagement.config;
 
+import io.micrometer.core.instrument.binder.jvm.JvmThreadMetrics;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -20,5 +21,10 @@ public class AppConfig {
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    JvmThreadMetrics threadMetrics() {
+        return new JvmThreadMetrics();
     }
 }

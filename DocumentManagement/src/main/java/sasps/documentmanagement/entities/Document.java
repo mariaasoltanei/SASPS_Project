@@ -7,15 +7,11 @@ import java.util.Date;
 import java.util.UUID;
 
 
+@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorValue("document")
-@DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING, name = "extension")
-@Entity
-@Builder
 public class Document extends DocumentComponent {
 
     @Id
@@ -30,6 +26,9 @@ public class Document extends DocumentComponent {
 
     @Column(name = "last_modified_date")
     private Date lastModified;
+
+    @Column(name = "extension", insertable = false, updatable = false)
+    private Extension extension;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "person_id", nullable = false)

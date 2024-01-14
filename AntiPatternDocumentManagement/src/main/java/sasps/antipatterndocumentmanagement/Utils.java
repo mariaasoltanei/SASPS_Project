@@ -1,36 +1,22 @@
 package sasps.antipatterndocumentmanagement;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
 import java.util.*;
-import java.util.function.Function;
 
 
 // Numai eu si Dumnezeu stim ce face clasa asta
@@ -67,7 +53,7 @@ public class Utils implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Person person = poltergeist.personRepository.findByUsername(username);
+        Person person = poltergeist.repos.personRepository.findByUsername(username);
         if (person == null) {
             System.out.println("User not found with username: " + username);
         }
@@ -129,7 +115,7 @@ public class Utils implements UserDetailsService {
 
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                Person person = poltergeist.repositories.findByUsername(username);
+                Person person = poltergeist.repos.personRepository.findByUsername(username);
                 if (person == null) {
                     throw new UsernameNotFoundException("User not found with username: " + username);
                 }
@@ -145,7 +131,7 @@ public class Utils implements UserDetailsService {
                 newUser.setPassword(bcryptEncoder.encode(person.getPassword()));
                 newUser.setRole(person.getRole());
                 newUser.setSignature(null);
-                personRepository.save(newUser);
+                poltergeist.repos.personRepository.save(newUser);
                 return newUser;
             }
         }

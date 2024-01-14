@@ -2,16 +2,13 @@ package sasps.antipatterndocumentmanagement;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -40,7 +37,7 @@ public class GodClass {
         try {
             if (id == null)
                 throw new IllegalArgumentException("Id is null!");
-            return poltergeist.documentRepository.findById(id).orElse(null);
+            return poltergeist.repos.documentRepository.findById(id).orElse(null);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             throw e;
@@ -49,18 +46,18 @@ public class GodClass {
 
     public UUID createDocument(Document document, Person person) {
         try {
-            Document searchedDocument = poltergeist.documentRepository.findByName(document.getName()).orElse(null);
+            Document searchedDocument = poltergeist.repos.documentRepository.findByName(document.getName()).orElse(null);
             if (searchedDocument != null)
                 throw new IllegalArgumentException("Document with name(" + document.getName() + ") already exists!");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         document.setPerson(person);
-        Document savedDocument = poltergeist.documentRepository.save(document);
+        Document savedDocument = poltergeist.repos.documentRepository.save(document);
         return savedDocument.getId();
     }
     public UUID deleteDocument (UUID id) {
-        Optional<Document> documentOptional = poltergeist.documentRepository.findById(id);
+        Optional<Document> documentOptional = poltergeist.repos.documentRepository.findById(id);
         if (documentOptional.isEmpty()) {
             System.out.println("Document with id(" + id + ") doesn't exist!");
             return null;
@@ -68,13 +65,13 @@ public class GodClass {
         else
         {
             Document document = documentOptional.get();
-            poltergeist.documentRepository.delete(document);
+            poltergeist.repos.documentRepository.delete(document);
             return document.getId();
         }
     }
 
     public UUID updateDocument (UUID id, Document document) {
-        Optional<Document> documentOptional = poltergeist.documentRepository.findById(id);
+        Optional<Document> documentOptional = poltergeist.repos.documentRepository.findById(id);
         if (documentOptional.isEmpty()) {
             System.out.println("Document with id(" + id + ") doesn't exist!");
             return null;
@@ -85,18 +82,18 @@ public class GodClass {
             updatedDocument.setUploadDate(document.getUploadDate());
             updatedDocument.setLastModified(document.getLastModified());
             document.setPerson(document.getPerson());
-            poltergeist.documentRepository.save(updatedDocument);
+            poltergeist.repos.documentRepository.save(updatedDocument);
             return updatedDocument.getId();
         }
     }
 
     public UUID createPerson(Person person) {
-        Person savedPerson = poltergeist.personRepository.save(person);
+        Person savedPerson = poltergeist.repos.personRepository.save(person);
         return savedPerson.getId();
     }
 
     public Person findPersonByID(UUID id) {
-        Optional<Person> personOptional = poltergeist.personRepository.findById(id);
+        Optional<Person> personOptional = poltergeist.repos.personRepository.findById(id);
         if(personOptional.isEmpty()){
             System.out.println("Person with id("+id+") doesn't exist!");
             throw new ResourceNotFoundException("Person with id("+id+") doesn't exist!");
@@ -106,24 +103,24 @@ public class GodClass {
     }
 
     public UUID deletePerson(UUID id) /* throws PersonNotFoundException */{
-        Optional<Person> personOptional = poltergeist.personRepository.findById(id);
+        Optional<Person> personOptional = poltergeist.repos.personRepository.findById(id);
         if(personOptional.isEmpty()){
             System.out.println("Person with id("+id+") doesn't exist!");
             return null;
         }
         else{
             Person person = personOptional.get();
-            poltergeist.personRepository.delete(person);
+            poltergeist.repos.personRepository.delete(person);
             return person.getId();
         }
     }
 
     public void deleteAll() {
-        poltergeist.personRepository.deleteAll();
+        poltergeist.repos.personRepository.deleteAll();
     }
 
     public UUID updatePerson(UUID id, Person person){
-        Optional<Person> personOptional = poltergeist.personRepository.findById(id);
+        Optional<Person> personOptional = poltergeist.repos.personRepository.findById(id);
         if(personOptional.isEmpty()){
             System.out.println("Person with id("+id+") doesn't exist!");
             throw new ResourceNotFoundException("Person with id("+id+") doesn't exist!");
@@ -134,7 +131,7 @@ public class GodClass {
             updatedPerson.setPassword(person.getPassword());
             updatedPerson.setRole(person.getRole());
             updatedPerson.setSignature(person.getSignature());
-            poltergeist.personRepository.save(updatedPerson);
+            poltergeist.repos.personRepository.save(updatedPerson);
             return updatedPerson.getId();
         }
     }

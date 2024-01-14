@@ -10,13 +10,11 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING, name = "document_type")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Table(name = "document_component")
 public abstract class DocumentComponent {
 
     @Id
@@ -32,7 +30,10 @@ public abstract class DocumentComponent {
     @Column(name = "last_modified_date")
     public Date lastModified;
 
-    @ManyToOne(optional = false)
+    @Column(name = "extension")
+    public Extension extension;
+
+    @ManyToOne(optional = false,cascade = CascadeType.ALL)
     @JoinColumn(name = "person_id", nullable = false)
     public Person person;
     abstract String display();

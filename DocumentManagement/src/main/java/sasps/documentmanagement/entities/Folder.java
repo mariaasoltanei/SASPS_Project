@@ -15,18 +15,14 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@DiscriminatorValue("folder")
-
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Folder extends DocumentComponent {
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "folder_components",
-            joinColumns = @JoinColumn(name = "folder_id"),
-            inverseJoinColumns = @JoinColumn(name = "document_id")
-    )
-    private List<DocumentComponent> documents;
 
-    public void addDocument(DocumentComponent document) {
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "folder_id")
+    private List<Document> documents;
+
+    public void addDocument(Document document) {
         documents.add(document);
     }
 
